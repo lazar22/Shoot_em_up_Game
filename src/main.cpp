@@ -15,15 +15,21 @@ int main()
 {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
-    // if (TTF_Init() != 0)
-    // {
-    //     SDL_Log("Fail to Init TTF");
-    //     return 1;
-    // }
+    if (!TTF_Init())
+    {
+        SDL_Log("Fail to Init TTF [%s]", SDL_GetError());
+        return 1;
+    }
 
     SDL_Window* window = SDL_CreateWindow("Chicken",
                                           platform::window::WIDTH, platform::window::HEIGHT,
                                           SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP);
+
+    if (SDL_Surface* icon = IMG_Load(platform::sprite::ship::PATH))
+    {
+        SDL_SetWindowIcon(window, icon);
+        SDL_DestroySurface(icon);
+    }
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
 

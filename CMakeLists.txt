@@ -12,6 +12,7 @@ find_package(SDL3_image CONFIG REQUIRED)
 add_executable(Shooter src/main.cpp
         lib/sprite_loader/sprite_loader.cpp
         lib/game_loop/game_loop.cpp
+        include/app.rc
 )
 
 add_custom_target(copy_assets
@@ -28,3 +29,7 @@ target_include_directories(Shooter PRIVATE
         lib/game_loop
         include
 )
+
+if (MSVC)
+    set_source_files_properties(include/app.rc PROPERTIES LANGUAGE RC)
+endif ()
