@@ -13,6 +13,7 @@ add_executable(Shooter src/main.cpp
         lib/sprite_loader/sprite_loader.cpp
         lib/game_loop/game_loop.cpp
         include/app.rc
+        include/bullet.h
 )
 
 add_custom_target(copy_assets

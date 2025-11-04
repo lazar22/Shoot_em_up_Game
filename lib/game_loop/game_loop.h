@@ -8,11 +8,20 @@
 #include <SDL3/SDL_pixels.h>
 #include <SDL3/SDL_render.h>
 
+#include <platform.h>
+#include <bullet.h>
+
 namespace game
 {
-    namespace game_loop
+    namespace loop
     {
-        void set_background_color(SDL_Renderer* renderer, SDL_Color color);
+        void init(SDL_Renderer* _renderer, const platform::input::input_t& _input);
+
+        void set_background_color(SDL_Color color);
+
+        void move_player(SDL_FRect& pos, float player_speed, float delta_time);
+
+        void shoot(SDL_FRect player_pos, float delta_time);
     }
 }
 

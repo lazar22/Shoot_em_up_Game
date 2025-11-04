@@ -5,12 +5,23 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+#define READ_KEY(button, key) case(key):{\
+input.buttons[button].changed = is_down != input.buttons[button].is_down;\
+input.buttons[button].is_down = is_down;\
+} break;
+
+#define IS_DOWN(button) input.buttons[button].is_down
+#define IS_PRESSED(button) (input.buttons[button].is_down && input.buttons[button].changed)
+#define IS_RELEASED(button) (!input.buttons[button].is_down && input.buttons[button].changed)
+
 namespace platform
 {
     namespace window
     {
         constexpr int WIDTH = 1280;
         constexpr int HEIGHT = 720;
+
+        constexpr auto TITLE{"Chicken"};
     }
 
     namespace audio
@@ -27,13 +38,34 @@ namespace platform
 
     namespace input
     {
-        enum
+        typedef struct BUTTON_STATE
+        {
+            bool is_down;
+            bool changed;
+        } btn_state_t;
+
+
+        enum BUTTONS
         {
             UP = 0,
             DOWN,
             LEFT,
             RIGHT,
+
+            W,
+            S,
+            A,
+            D,
+
+            SPACE,
+
+            COUNT,
         };
+
+        typedef struct INPUT
+        {
+            BUTTON_STATE buttons[COUNT];
+        } input_t;
     }
 
     namespace sprite
@@ -44,6 +76,19 @@ namespace platform
         {
             const auto PATH{"assets/sprites/ships/starter/Starter_Ship.png"};
         }
+    }
+
+    namespace player_spec
+    {
+        constexpr float SPEED = 300.0f;
+    }
+
+    namespace bullet
+    {
+        constexpr int MAX_AMOUNT = 4096;
+
+        constexpr float SPEED = 1000.0f;
+        constexpr float LIFE_TIME = 1.0f;
     }
 }
 
