@@ -4,7 +4,6 @@
 
 #include "game_loop.h"
 
-#include <SDL3/SDL_oldnames.h>
 #include <SDL3/SDL_log.h>
 #include <algorithm>
 
@@ -84,8 +83,8 @@ void game::loop::shoot(const SDL_FRect player_pos, const float delta_time)
         const float spawn_y = player_pos.y - bh; // spawn just above the player
 
         auto handle = bullets.spawn(spawn_x, spawn_y,
-                      0.0f, -platform::bullet::SPEED,
-                      platform::bullet::LIFE_TIME);
+                                    0.0f, -platform::bullet::SPEED,
+                                    platform::bullet::LIFE_TIME);
         if (handle == 0)
         {
             SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, "Bullet pool full; dropping shot");
@@ -96,10 +95,14 @@ void game::loop::shoot(const SDL_FRect player_pos, const float delta_time)
                    0.0f, static_cast<float>(platform::window::WIDTH),
                    0.0f, static_cast<float>(platform::window::HEIGHT));
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, platform::bullet::COLOR.r, platform::bullet::COLOR.g, platform::bullet::COLOR.b,
+                           platform::bullet::COLOR.a);
     bullets.draw([&](const bullet_t& bullet)
     {
-        SDL_FRect pos = {bullet.x, bullet.y, 10.0f, 10.0f};
+        SDL_FRect pos = {
+            bullet.x, bullet.y,
+            platform::bullet::WIDTH, platform::bullet::HEIGHT,
+        };
         SDL_RenderFillRect(renderer, &pos);
     });
 }

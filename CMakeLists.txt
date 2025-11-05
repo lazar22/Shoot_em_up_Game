@@ -24,7 +24,12 @@ add_custom_target(copy_assets
 )
 
 add_dependencies(Shooter copy_assets)
-target_link_libraries(Shooter PRIVATE SDL3::SDL3 SDL3_ttf::SDL3_ttf SDL3_image::SDL3_image)
+target_link_libraries(Shooter PRIVATE
+        SDL3::SDL3
+        SDL3_ttf::SDL3_ttf
+        SDL3_image::SDL3_image
+)
+
 target_include_directories(Shooter PRIVATE
         lib/sprite_loader
         lib/game_loop

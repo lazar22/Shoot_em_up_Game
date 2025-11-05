@@ -87,6 +87,11 @@ namespace platform
     {
         constexpr int MAX_AMOUNT = 4096;
 
+        constexpr float HEIGHT = 10.0f;
+        constexpr float WIDTH = 5.0f;
+
+        constexpr SDL_Color COLOR = {157, 250, 245};
+
         constexpr float SPEED = 1000.0f;
         constexpr float LIFE_TIME = 1.0f;
     }
